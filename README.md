@@ -8,4 +8,4 @@ Establecimiento de conexión entre cliente servidor OPC-UA y entre dispositivos 
 Usando la herramienta opcua-client, podemos tener una interfaz gráfica en la que monitorizar nuestro servidor. Para lanzar introducimos el siguiente comando en una terminal anaconda: opcua-client.
 
 Vease un ejemplo de la interfaz: 
-![Interfaz Gráfica](/home/riggio/Industrial_com/opc-ua-client-graph.png)
+![Interfaz Gráfica](opc-ua-client-graph.png)
