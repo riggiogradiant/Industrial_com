@@ -1,37 +1,44 @@
 import sys
-sys.path.insert(0, "..")
-from opcua import Client
+from opcua import Client, ua
+
+class SubHandler:
+    def datachange_notification(self, node, val, data):
+        print(f'Variable {node} ha cambiado a: {val}')
+
+# def browse_node(node):
+#     children = node.get_children()
+#     for child in children:
+#         browse_name = child.get_browse_name()
+#         display_name = child.get_display_name().Text
+#         node_class = child.get_node_class()
+#         if node_class == ua.NodeClass.Variable:
+#             print(f"Variable found: {display_name} (Browse Name: {browse_name}, Node ID: {child.nodeid})")
+#         browse_node(child)
 
 if __name__ == "__main__":
     client = Client("opc.tcp://localhost:4840/freeopcua/server/")
-    #connect using a user
-    # client = Client("opc.tcp://admin@localhost:4840/freeopcua/server/")
     try:
         client.connect()
-
-        # Client has a few methods to get proxy to UA nodes that
-        #  should always be in address space such as Root or Objects
         root = client.get_root_node()
-        print("Objects node is: ", root)
-
-        # Node objects have methods to read and write node attributes
-        #  as well as browse or populate address space
-        print("Children of root are: ", root.get_children())
-
-        # get a specific node knowing its node id
-        #var = client.get_node(ua.NodeId(1002, 2))
-        #var = client.get_node("ns=3;i=2002")
-        #print(var)
-        #var.get_data_value() # get value of node as a DataValue object
-        #var.get_value() # get value of node as a python builtin
-        #var.set_value(3.9) # set node value using implicit data type
-
-        # Now getting a variable node using its browse path
+        objects = client.get_objects_node()
+        # browse_node(objects)
+        server_node = client.get_server_node()
+        server_status = server_node.get_child(["0:ServerStatus"])
+        print("\nServer Status: ", server_status.get_value())
+        namespaces = client.get_namespace_array()
+        print("\nNamespaces: ", namespaces)
+        endpoints = client.get_endpoints()
+        for endpoint in endpoints:
+            print("\nEndpoint: ", endpoint)
         myvar = root.get_child(["0:Objects", "2:MyObject", "2:MyVariable"])
-        obj = root.get_child(["0:Objects", "2:MyObject"])
-        print("myvar is: ", myvar)
-        print("myobj is: ", obj)
-        print(myvar.get_value())
+        print("\nCurrent value: ", myvar.get_value())
 
+        myvar.set_value(ua.Variant(42, ua.VariantType.Int32))
+        print("\nNew value set --> Myvar = {}".format(myvar.get_value()))
+
+        # while True:
+        #     handler = SubHandler()
+        #     sub = client.create_subscription(500, handler)
+        #     handle = sub.subscribe_data_change(myvar)
     finally:
         client.disconnect()

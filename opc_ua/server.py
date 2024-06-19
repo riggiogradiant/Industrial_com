@@ -21,8 +21,17 @@ if __name__ == "__main__":
     # populating our address space
     myobj = objects.add_object(idx, "MyObject")
     myvar = myobj.add_variable(idx, "MyVariable", 0.0)
-    
     myvar.set_writable()    # Set MyVariable to be writable by clients --> clients can update the value
+    myvar2 = myobj.add_variable(idx, "MyVariable2", 10.0)
+    myvar2.set_writable()    # Set MyVariable2 to be writable by clients
+
+    myvar3 = myobj.add_variable(idx, "MyVariable3", 20.0)
+    myvar3.set_writable()    # Set MyVariable3 to be writable by clients
+
+    myvar4 = myobj.add_variable(idx, "MyVariable4", 30.0)
+    myvar4.set_writable()    # Set MyVariable4 to be writable by clients
+
+
 
     server.start()
 
