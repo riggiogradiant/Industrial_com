@@ -33,7 +33,6 @@ if __name__ == "__main__":
         print("Error al conectar o interactuar con el servidor OPC UA:", e)
 
     finally:
-        # Desconéctate del servidor
         client.disconnect()
         print("Cliente desconectado del servidor OPC UA")
 
