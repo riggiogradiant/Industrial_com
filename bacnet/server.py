@@ -39,6 +39,7 @@ def handle_write_request(obj_type, obj_instance, prop, value):
 # Configurar servidor BAC0
 device_server = BAC0.lite(ip='127.0.0.1', port=47808)
 
+
 # Crear un objeto AnalogValue simulado
 analog_value = {'objectType': 'analogValue', 'instanceNumber': 1, 'presentValue': 0, 'objectName': 'MyAnalogValue'}
 
@@ -48,7 +49,10 @@ analog_value = {'objectType': 'analogValue', 'instanceNumber': 1, 'presentValue'
 
 try:
     print("Servidor corriendo...")
-    device_server.iam()
+    i_am = device_server.iam()
+    print("Valor del IAM: {}".format(i_am))
+    devices = device_server.whois()
+    print("DISPOSITIVOS DESCUBIERTOS: {}".format(devices))
     while True:
         pass
 except KeyboardInterrupt:

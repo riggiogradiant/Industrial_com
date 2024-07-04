@@ -7,26 +7,31 @@ import BAC0
 client = BAC0.lite(ip='127.0.0.1', port= 47809)
 
 try:
-    client.whois()
+    devices = client.whois()
+    print("DISPOSITIVOS DESCUBIERTOS: {}".format(devices))
     client.iam() #Devuelve True
 
     print("Cliente conectado...")
     # Enviar una solicitud de escritura al servidor
     
-    target_address = '127.0.0.1'
-    object_type = 'analogValue'
-    instance_number = 1
-    property_name = 'presentValue'
-    value_to_write = 42.0
+    # # Dirección del dispositivo en formato Network:Address
+    # addr = '127.0.0.1:47808'
 
-    # Enviar una solicitud de escritura al servidor
-    client.write(target_address, (object_type, instance_number), property_name, value_to_write)
-    
+    # # Construir el argumento de la función write
+    # args = f'{addr} analogValue 1 presentValue 22.0 - 8'
 
+    # # Llamar a la función write
+    # status = client.write(args)
 
-    # Enviar una solicitud de lectura al servidor
-    result = client.read('127.0.0.1', ('analogValue', 1), 'presentValue')
-    print(f"Resultado de la lectura: {result}")
+    # # Imprimir el resultado
+    # if status:
+    #     print("Escritura exitosa")
+    # else:
+    #     print("Fallo en la escritura")
+
+    #     # Enviar una solicitud de lectura al servidor
+    #     result = client.read('127.0.0.1', ('analogValue', 1), 'presentValue')
+    #     print(f"Resultado de la lectura: {result}")
 
 except KeyboardInterrupt:
     print("Cliente detenido por el usuario.")
