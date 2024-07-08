@@ -33,5 +33,7 @@ try:
     #     result = client.read('127.0.0.1', ('analogValue', 1), 'presentValue')
     #     print(f"Resultado de la lectura: {result}")
 
+    #cambio git
+
 except KeyboardInterrupt:
     print("Cliente detenido por el usuario.")
