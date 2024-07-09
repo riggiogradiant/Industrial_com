@@ -9,13 +9,14 @@ port = 47808  # Puerto BACnet
 bacnet = BAC0.lite()
 # Enviar un mensaje I-Am manualmente para asegurarse de que el dispositivo es descubrible
 iam = bacnet.iam()
-print(iam)
 
+print("\nResultado de enviar el iam: {}".format(iam))
 print("Servidor BACnet iniciado y listo para descubrir.")
 
 # Mantener el servidor corriendo
 try:
     while True:
+        iam = bacnet.iam()
         pass
 except KeyboardInterrupt:
     print("Servidor BACnet detenido.")

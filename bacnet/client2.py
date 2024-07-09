@@ -11,6 +11,7 @@ client = BAC0.lite(port = port)
 #Enviar solicitud Who-Is
 devices = client.whois()
 
+
 print("Dispositivos descubiertos:")
 for device in devices:
     print(device)
